@@ -6,24 +6,24 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import tempfile
-import os
 
-# Use relative path for driver inside your repo (adjust if needed)
-driver_path = os.path.join(os.path.dirname(__file__), '..', 'drivers', 'chromedriver.exe')
+# Path to your chromedriver (change if needed)
+driver_path = r'D:\capstone\pythonProject\drivers\chromedriver.exe'
 
 @pytest.fixture
 def driver():
+    # Setup Chrome options for CI-friendly run (headless + temp user data dir)
     chrome_options = Options()
-    chrome_options.add_argument("--headless")  # headless mode for CI
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--headless")  # Run in headless mode
+    chrome_options.add_argument("--no-sandbox")  # Recommended for CI
+    chrome_options.add_argument("--disable-dev-shm-usage")  # Recommended for CI
 
+    # Create a temporary directory for user data to avoid session conflicts
     temp_dir = tempfile.TemporaryDirectory()
-    chrome_options.add_argument(f"--user-data-dir={temp_dir.name}")  # unique user data dir per test run
+    chrome_options.add_argument(f"--user-data-dir={temp_dir.name}")
 
     service = Service(driver_path)
     driver = webdriver.Chrome(service=service, options=chrome_options)
-
     yield driver
 
     driver.quit()
