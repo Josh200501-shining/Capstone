@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Simple Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        .login-container {
+            max-width: 300px;
+            margin: auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        input {
+            width: 100%;
+            margin: 8px 0;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <label for="username">Username:</label>
+        <input id="username" type="text" placeholder="Enter username" />
+
+        <label for="password">Password:</label>
+        <input id="password" type="password" placeholder="Enter password" />
+
+        <button id="loginButton" onclick="validateLogin()">Login</button>
+
+        <p id="message"></p>
+    </div>
+
+    <script>
+        function validateLogin() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const messageEl = document.getElementById("message");
+
+            if (username === "admin" && password === "password123") {
+                messageEl.style.color = "green";
+                messageEl.textContent = "Login successful!";
+            } else {
+                messageEl.style.color = "red";
+                messageEl.textContent = "Invalid username or password.";
+            }
+        }
+    </script>
+</body>
+</html>
